@@ -1,5 +1,32 @@
 # AngularPactExample
 
+Install the following PACT dependencies:  
+- npm install pact --save-dev
+- npm install pact-web --save-dev
+- npm install karma-pact --save-dev
+
+The following changes were made to the karma.conf.js file:  
+    module.exports = function (config) {
+      config.set({
+       basePath: '',
+    -     frameworks: ['jasmine', '@angular/cli'],
+    +     frameworks: ['jasmine', '@angular/cli', 'pact'],
+    +     pact: {cors: true},
+        plugins: [
+          require('karma-jasmine'),
+    +       require('karma-pact'),
+          require('karma-chrome-launcher'),
+          require('karma-phantomjs-launcher'),
+          require('karma-jasmine-html-reporter'),
+    ...
+    port: 9876,
+    +      proxies: {'/hello-service/api':'http://localhost:1234/hello-service/api'},
+    colors: true,
+
+ng test will run all unit tests including the pact test: hello-service.pact.spec.ts.  
+The pact file will be generated in folder pacts by default (you can configure this in pact property in the karma.conf.js).  
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.4.
 
 ## Development server
