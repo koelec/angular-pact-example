@@ -23,6 +23,8 @@ The following changes were made to the karma.conf.js file:
        +      proxies: {'/hello-service/api':'http://localhost:1234/hello-service/api'},  
        colors: true,  
 
+Notice that karma-pact will create a mock-server running at port 1234 (by default) and this cannot be the same port as
+karma is using (9876). This is why we need to define proxies to redirect requests from our pact tests to the mock-server.  
 'ng test' will run all unit tests including the pact test: hello-service.pact.spec.ts.  
 The pact file will be generated in folder pacts by default (you can configure this in pact property in the karma.conf.js).  
 For more info refer to [Pact JS repo]: https://github.com/pact-foundation/pact-js.
